@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI; //important
+using UnityEngine.AI;
 
 namespace Playtipes.Creature {
     [DisallowMultipleComponent]
@@ -9,6 +9,8 @@ namespace Playtipes.Creature {
     [RequireComponent(typeof(NavMeshAgent))]
     #endregion
     public class RandomMovement : MonoBehaviour {
+        private Animator animator;
+
         private NavMeshAgent agent;
 
         [SerializeField] private float range; // radius of sphere
@@ -16,7 +18,14 @@ namespace Playtipes.Creature {
         [SerializeField] private Transform centrePoint; // centre of the area the agent wants to move around in
                                                         // instead of centrePoint you can set it as the transform of the agent if you don't care about a specific area
 
-        void Start() {
+
+        private void Awake() {
+            animator = GetComponentInChildren<Animator>();
+        }
+
+
+
+        private void Start() {
             agent = GetComponent<NavMeshAgent>();
 
             if (centrePoint == null)
@@ -24,7 +33,8 @@ namespace Playtipes.Creature {
         }
 
 
-        void Update() {
+
+        private void Update() {
             if (agent.remainingDistance <= agent.stoppingDistance) // done with path
             {
                 Vector3 point;
@@ -35,8 +45,16 @@ namespace Playtipes.Creature {
                 }
             }
 
+            if (animator == null)
+                return;
+
+            float speed = agent.velocity.magnitude / agent.speed;
+            animator.SetBool("IsWalking", speed > 0.1f);
         }
-        bool RandomPoint(Vector3 center, float range, out Vector3 result) {
+
+
+
+        private bool RandomPoint(Vector3 center, float range, out Vector3 result) {
 
             Vector3 randomPoint = center + Random.insideUnitSphere * range; // random point in a sphere 
             NavMeshHit hit;

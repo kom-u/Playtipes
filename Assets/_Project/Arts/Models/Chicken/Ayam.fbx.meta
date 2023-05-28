@@ -1,20 +1,11 @@
 fileFormatVersion: 2
-guid: 421414d64ddd2db46a568267d4d56b0d
+guid: 2724a96bbe1d6b24eb0e98da36dd4e81
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable:
   - first:
       74: 4781951162920444690
-    second: Armature|ArmatureAction
-  - first:
-      74: -1422011007694221501
-    second: Armature|ArmatureAction.001
-  - first:
-      74: 6065333994261340666
-    second: Armature|Armature|Armature|ArmatureAction
-  - first:
-      74: 8003312214571475973
-    second: Armature|Armature|Armature|ArmatureAction.001
+    second: Ayam_Walk
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -43,7 +34,36 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Ayam_Walk
+      takeName: Armature|ArmatureAction
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 0
   meshes:
     lODScreenPercentages: []
@@ -101,7 +121,7 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     globalScale: 1
-    rootMotionBoneName: 
+    rootMotionBoneName: Armature
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1

@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Playtipes.Core;
 using UnityEngine.InputSystem;
 
 namespace Playtipes.InputSystem {
@@ -10,6 +9,7 @@ namespace Playtipes.InputSystem {
         [SerializeField] private InputActionReference movementAction;
         [SerializeField] private InputActionReference sprintAction;
         [SerializeField] private InputActionReference walkAction;
+        [SerializeField] private InputActionReference interactAction;
 
         private Vector2 movementInput;
 
@@ -19,19 +19,35 @@ namespace Playtipes.InputSystem {
 
 
         private void OnEnable() {
-            EnableLookInput();
-            movementAction.action.Enable();
-            sprintAction.action.Enable();
-            walkAction.action.Enable();
+            GameManager.Instance.gameEvent.OnStart += GameManager_GameEvent_OnStart;
+            GameManager.Instance.gameEvent.OnObjectiveCompleted += GameManager_GameEvent_OnObjectiveCompleted;
         }
 
 
 
         private void OnDisable() {
+            GameManager.Instance.gameEvent.OnStart -= GameManager_GameEvent_OnStart;
+            GameManager.Instance.gameEvent.OnObjectiveCompleted -= GameManager_GameEvent_OnObjectiveCompleted;
+        }
+
+
+
+        private void GameManager_GameEvent_OnStart(GameEvent _gameEvent) {
+            EnableLookInput();
+            movementAction.action.Enable();
+            sprintAction.action.Enable();
+            walkAction.action.Enable();
+            interactAction.action.Enable();
+        }
+
+
+
+        private void GameManager_GameEvent_OnObjectiveCompleted(GameEvent _gameEvent) {
             DisableLookInput();
             movementAction.action.Disable();
             sprintAction.action.Disable();
             walkAction.action.Disable();
+            interactAction.action.Disable();
         }
 
 
@@ -86,6 +102,19 @@ namespace Playtipes.InputSystem {
 
         public bool IsSprinting() {
             return sprintAction.action.IsPressed() && MoveAmount() >= 0.5f;
+        }
+
+
+
+        public bool IsInteracting() {
+            return interactAction.action.IsPressed();
+        }
+
+
+
+        public void ResetInputValue() {
+            horizontalInput = 0;
+            verticalInput = 0;
         }
     }
 }

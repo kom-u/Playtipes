@@ -64,6 +64,15 @@ namespace Playtipes.InputSystem
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""8c55d2cf-d507-4a5a-9239-8138536a1265"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -275,6 +284,28 @@ namespace Playtipes.InputSystem
                     ""action"": ""Walk"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e79be84d-80aa-44bd-b6e6-57542ef12830"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""631e38e2-e3f9-4c86-ab75-a1d8b8f50ffd"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -287,6 +318,7 @@ namespace Playtipes.InputSystem
             m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
             m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
             m_Player_Walk = m_Player.FindAction("Walk", throwIfNotFound: true);
+            m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -350,6 +382,7 @@ namespace Playtipes.InputSystem
         private readonly InputAction m_Player_Look;
         private readonly InputAction m_Player_Sprint;
         private readonly InputAction m_Player_Walk;
+        private readonly InputAction m_Player_Interact;
         public struct PlayerActions
         {
             private @PlayerAction m_Wrapper;
@@ -358,6 +391,7 @@ namespace Playtipes.InputSystem
             public InputAction @Look => m_Wrapper.m_Player_Look;
             public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
             public InputAction @Walk => m_Wrapper.m_Player_Walk;
+            public InputAction @Interact => m_Wrapper.m_Player_Interact;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -379,6 +413,9 @@ namespace Playtipes.InputSystem
                     @Walk.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWalk;
                     @Walk.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWalk;
                     @Walk.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWalk;
+                    @Interact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                    @Interact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                    @Interact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -395,6 +432,9 @@ namespace Playtipes.InputSystem
                     @Walk.started += instance.OnWalk;
                     @Walk.performed += instance.OnWalk;
                     @Walk.canceled += instance.OnWalk;
+                    @Interact.started += instance.OnInteract;
+                    @Interact.performed += instance.OnInteract;
+                    @Interact.canceled += instance.OnInteract;
                 }
             }
         }
@@ -405,6 +445,7 @@ namespace Playtipes.InputSystem
             void OnLook(InputAction.CallbackContext context);
             void OnSprint(InputAction.CallbackContext context);
             void OnWalk(InputAction.CallbackContext context);
+            void OnInteract(InputAction.CallbackContext context);
         }
     }
 }
